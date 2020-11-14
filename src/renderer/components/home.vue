@@ -265,7 +265,7 @@ export default {
       this.status = '即将自动连接'
       setTimeout(()=>{
         this.loginAndKeepAlive()
-      },10000)
+      },6000)
     },
     handleSelect:function (){
       this.historys.forEach((item)=>{

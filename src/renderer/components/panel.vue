@@ -88,10 +88,10 @@ export default {
   width: 46px !important;
   height: 100%;
 
-  overflow-x: hidden;
+  overflow: hidden;
 
   background-color: #959494;
-
+  border-bottom: 2px solid #000;
 }
 
 .side-bar > .el-menu{
