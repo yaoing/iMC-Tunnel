@@ -57,7 +57,6 @@ export default {
     handleChange:function (e){
       e.preventDefault()
       let status = !this.form.startup
-      console.log()
       if(status){
         launcher.disable()
       }
@@ -76,7 +75,6 @@ export default {
   },
   mounted() {
     this.loadSettings()
-    console.log(this.form.startup)
   }
 }
 </script>
@@ -89,6 +87,6 @@ export default {
 }
 
 .botton-bar{
-  margin-top: 100px;
+  margin-top: 80px;
 }
 </style>

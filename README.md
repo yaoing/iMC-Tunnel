@@ -1,19 +1,22 @@
 # imc_tunnel
 
->一款带图形化界面的 iMC Portal网关 连接工具
+> An electron-vue project
 
-#### 安装步骤
+#### Build Setup
 
-直接从 Releases 中下载安装程序
+``` bash
+# install dependencies
+npm install
 
-#### 支持功能
-- [x] 开机自动连接
-- [x] 断线重连
-- [x] 自定义网关IP及端口
-- [ ] 多平台支持
+# serve with hot reload at localhost:9080
+npm run dev
 
-#### 参考项目
+# build electron application for production
+npm run build
 
-- [electron-vue](https://github.com/SimulatedGREG/electron-vue)
-- [element-ui](https://github.com/ElemeFE/element)
-- [MC-Portal-Login](https://github.com/Besfim/iMC-Portal-Login)
+
+```
+
+---
+
+This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).

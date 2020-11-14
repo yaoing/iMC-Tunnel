@@ -3,7 +3,6 @@ const iconv = require('iconv-lite');
 
 
 async function login(account,password,ip,port){
-    // console.log(account,password,ip,port)
     var url = `http://${ip}:${port}/portal/pws?t=li`
     var headers = {
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
@@ -57,8 +56,6 @@ async function login(account,password,ip,port){
                     }
 
                     else if(data.errorNumber ==="1"){
-                        sendOnline(ip,port,data.portalLink)
-                        sendHeartBeat(ip,port,data.portalLink)
 
                         if(connectionTest())
                             resolve({
@@ -129,70 +126,24 @@ async function logout(ip,port){
     })
 }
 async function connectionTest(host='https://www.baidu.com/favicon.ico'){
-    request.get(host,function (err,res){
-        if(!err && res.statusCode===200)
-            return 1
-        else
-            console.log(err)
-            return 0
-    })
-}
-
-
-
-function sendOnline(ip,port,pl){
-    var url = `http://${ip}:${port}/portal/page/online.jsp?st=2&
-        pl=${pl}&custompath=&uamInitCustom=1&customCfg=MQ&uamInitLogo=H3C&userName=null&userPwd=null&loginType=3&innerStr=null&outerStr=null&v_is_selfLogin=0`
-    var headers = {
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
-        'Accept':'text/plain, */*; q=0.01',
-        'Accept-Language':'zh-CN,zh;q=0.9',
-        'Connection':'keep-alive',
-        'Host': `${ip}:${port}`
-    }
 
     return new Promise(function (resolve,reject){
-        request.post(
-            {
-                url:url,
-                headers:headers,
-            },function(err,res){
-
+        request.get(host,function (err,res){
+            try {
                 if(!err && res.statusCode===200)
                     resolve(1)
-
                 else
-                    reject(0)
-
-            })
+                    resolve(0)
+            }catch (err){
+                reject(0)
+            }
+        })
     })
+
+
+
 }
 
-function sendHeartBeat(ip,port,pl){
-    var url = `http://${ip}:${port}/portal/page/online_heartBeat.jsp?pl=${pl}&custompath=&uamInitCustom=1&uamInitLogo=H3C`
-    var headers = {
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
-        'Accept':'text/plain, */*; q=0.01',
-        'Accept-Language':'zh-CN,zh;q=0.9',
-        'Connection':'keep-alive',
-    }
-
-    return new Promise(function (resolve,reject){
-        request.post(
-            {
-                url:url,
-                headers:headers,
-            },function(err,res){
-
-                if(!err && res.statusCode===200)
-                    resolve(1)
-
-                else
-                    reject(0)
-
-            })
-    })
-}
 
 function doHeartBeat(ip,port,userDevPort){
     var url = `http://${ip}:${port}/portal/page/doHeartBeat.jsp?userip=&basip=&
@@ -231,32 +182,5 @@ function decodeMsg(msg){
     return JSON.parse(resposeData)
 }
 
-function test(){
-    var url = `http://10.10.10.146:8080/portal/page/online.jsp`
-    var headers = {
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
-        'Accept':'text/plain, */*; q=0.01',
-        'Accept-Language':'zh-CN,zh;q=0.9',
-        'Connection':'keep-alive',
-    }
-
-    return new Promise(function (resolve,reject){
-        request.post(
-            {
-                url:url,
-                headers:headers,
-            },function(err,res,body){
-
-                if(!err && res.statusCode===200)
-                    resolve(1)
-
-                else
-                    reject(0)
-
-            })
-    })
-}
-
-// test()
 export default {login,logout,doHeartBeat,connectionTest}
 

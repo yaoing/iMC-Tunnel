@@ -18,13 +18,12 @@
                       placeholder="请输入登录密码"></el-input>
           </el-form-item>
           <el-form-item>
-<!--            <el-button :disabled="!isLogined"-->
-            <el-button
+            <el-button :disabled="!isLogined"
                        @click="logout" size="mini"
                        type="danger" plain>下线</el-button>
 
             <el-button ref="mainBtn" :loading="loading"
-                       @click="login" size="mini" @mousemove.native="handleHover"
+                       @click="loginAndKeepAlive" size="mini" @mousemove.native="handleHover"
                        type="primary">{{status ? status : '上线'}}</el-button>
 
           </el-form-item>
@@ -100,7 +99,7 @@ export default {
         }
       }
 
-      if(!this.isLogined && this.form.account && this.form.password){
+      else{
         this.loading = true
         this.updateGlobalSettings()
 
@@ -111,7 +110,6 @@ export default {
             this.globalSettings.bindPort
         )
 
-        // console.log(result)
         this.loading = false
         if(result instanceof Object && result.msg==='上线成功') {
           this.status = '已上线'
@@ -121,12 +119,14 @@ export default {
 
           this.saveRecord()
 
-          this.aliveRecorder={
-            value:parseInt(0),
-            unit: '分钟'
+          if(this.aliveRecorder.value===null){
+            this.aliveRecorder={
+              value:0,
+              unit: '分钟'
+            }
           }
 
-          this.keepAlive()
+          return 1
         }
         else{
           this.status = result
@@ -140,12 +140,20 @@ export default {
             type:'warning',
             position:"bottom-right"
           })
-
+          return 0
         }
       }
 
     },
+    loginAndKeepAlive:async function (){
+      if(this.isLogined)
+        return 0
 
+      let result = await this.login()
+      if(result===1 && this.timer === null){
+        this.keepAlive()
+      }
+    },
     logout:async function(){
       this.loading = false
 
@@ -185,7 +193,7 @@ export default {
         this.status = null
         this.isLogined = false
         clearInterval(this.timer)
-
+        this.timer = null
 
       }
 
@@ -253,8 +261,11 @@ export default {
       if(!startup)
         return 0
 
+      this.loading = true
       this.status = '即将自动连接'
-      setTimeout(this.login,10000)
+      setTimeout(()=>{
+        this.loginAndKeepAlive()
+      },10000)
     },
     handleSelect:function (){
       this.historys.forEach((item)=>{
@@ -268,25 +279,37 @@ export default {
         this.status='重新连接'
     },
 
-    keepAlive:function (){
-      this.timer = setInterval(()=>{
+    keepAlive: function (){
+      this.timer = setInterval(async ()=>{
+        if(!this.isLogined)
+          return 0
 
         this.heartBeatCounter++
 
         if(!this.isLogined && this.timeLogined)
           clearInterval(this.timer)
 
-        if(this.heartBeatCounter>=1){
+        if(this.heartBeatCounter>=30)
           tunnel.doHeartBeat(
               this.globalSettings.bindIP,
               this.globalSettings.bindPort,
               this.loginInfo.userDevPort,
           )
+
+        if(this.heartBeatCounter>=60){
+          this.login()
           this.heartBeatCounter = 0
         }
 
-        if(!tunnel.connectionTest())
+
+        let testResult = await tunnel.connectionTest()
+
+        if(!testResult){
+          this.isLogined = false
+          this.status = '意外下线'
           this.retry()
+        }
+
 
         var sub = (new Date().getTime() - this.timeLogined)/1000
 
@@ -312,9 +335,9 @@ export default {
 
       },60000)
     },
-    retry:function (){
-      // this.retryTime++
-      this.login()
+    retry:async function (){
+      this.retryTime++
+      await this.login()
 
       this.$notify({
         title:'重连连接',

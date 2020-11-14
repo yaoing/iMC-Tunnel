@@ -99,7 +99,7 @@ export default {
 }
 
 .el-menu-item:nth-child(2){
-  height: 246px;
+  height: 216px;
 }
 
 .side-bar li{
