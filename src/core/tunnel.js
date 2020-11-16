@@ -61,7 +61,9 @@ async function login(account,password,ip,port){
                             resolve({
                                 msg:'上线成功',
                                 userDevPort:data.userDevPort,
-                                portalLink:data.portalLink
+                                portalLink:data.portalLink,
+                                serialNo:data.serialNo,
+                                userStatus:data.userStatus
                             })
 
                         else{
@@ -139,21 +141,19 @@ async function connectionTest(host='https://www.baidu.com/favicon.ico'){
             }
         })
     })
-
-
-
 }
 
 
-function doHeartBeat(ip,port,userDevPort){
+function doHeartBeat(ip,port,userDevPort,userStatus,serialNo){
     var url = `http://${ip}:${port}/portal/page/doHeartBeat.jsp?userip=&basip=&
-    userDevPort=${userDevPort}&userStatus=99&serialNo=-19400&language=Chinese&e_d=&t=hb`
+    userDevPort=${userDevPort}&userStatus=${userStatus}&serialNo=${serialNo}&language=Chinese&e_d=&t=hb`
     var headers = {
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
         'Accept':'text/plain, */*; q=0.01',
         'Accept-Language':'zh-CN,zh;q=0.9',
         'Connection':'keep-alive',
-        'Host': `${ip}:${port}`
+        'Host': `${ip}:${port}`,
+        'Upgrade-Insecure-Requests': 1,
     }
 
     return new Promise(function (resolve,reject){

@@ -14,18 +14,21 @@ export default {
 </script>
 
 <style>
+
+*{
+  box-sizing: border-box;
+}
+
 html,body{
-  width: 560px;
-  height: 330px;
   margin: 0 auto;
   padding: 0;
 
 }
 
 #app{
-  width: 100%;
-  height: 100%;
+  width: 550px;
+  height: 330px;
   position: relative;
-
+  overflow: hidden;
 }
 </style>

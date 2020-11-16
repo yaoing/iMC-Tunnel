@@ -85,7 +85,7 @@ export default {
   methods:{
     login:async function(){
 
-      if(!this.form.account || !this.form.password){
+      if((!this.form.account || !this.form.password) && !this.isLogined){
         this.$notify({
           title:'登录失败',
           message:'未输入帐号密码。',
@@ -115,11 +115,11 @@ export default {
           this.status = '已上线'
           this.isLogined = true
           this.loginInfo = result
-          this.timeLogined = new Date().getTime()
 
-          this.saveRecord()
 
           if(this.aliveRecorder.value===null){
+            this.saveRecord()
+
             this.aliveRecorder={
               value:0,
               unit: '分钟'
@@ -151,6 +151,7 @@ export default {
 
       let result = await this.login()
       if(result===1 && this.timer === null){
+        this.timeLogined = new Date().getTime()
         this.keepAlive()
       }
     },
@@ -289,14 +290,15 @@ export default {
         if(!this.isLogined && this.timeLogined)
           clearInterval(this.timer)
 
-        if(this.heartBeatCounter>=30)
+        if(this.heartBeatCounter>=50)
           tunnel.doHeartBeat(
               this.globalSettings.bindIP,
               this.globalSettings.bindPort,
               this.loginInfo.userDevPort,
+              this.loginInfo.userStatus.serialNo
           )
 
-        if(this.heartBeatCounter>=60){
+        if(this.heartBeatCounter>=1200){
           this.login()
           this.heartBeatCounter = 0
         }
@@ -340,7 +342,7 @@ export default {
       await this.login()
 
       this.$notify({
-        title:'重连连接',
+        title:'重新连接',
         message:`尝试第${this.retryTime}次连接...`,
         type:'warning',
         position:"bottom-right"
@@ -390,6 +392,7 @@ button>span{
   color: #409eff;
   user-select: none;
 
+  font-family: Arial,sans-serif;
 }
 
 .emotion-success{
@@ -407,7 +410,7 @@ button>span{
 }
 .time-keep>span{
   font-size: 80px;
-  font-family: Consolas,"Microsoft YaHei";
+  font-family: Consolas,sans-serif;
 
 }
 

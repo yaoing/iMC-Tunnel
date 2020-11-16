@@ -1,7 +1,7 @@
 <template>
   <div class="setting-container">
 
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form :model="form" label-width="80px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="网关IP">
@@ -18,17 +18,17 @@
                        @click.native="handleChange" size="mini"></el-switch>
           </el-form-item>
         </el-col>
+
       </el-row>
 
-      <el-row class="botton-bar">
-        <el-col :offset="16">
+      <div class="botton-bar">
           <el-form-item>
             <!--          <el-button>重置</el-button>-->
             <el-button type="primary" size="mini" @click="saveSetting">保存</el-button>
 
           </el-form-item>
-        </el-col>
-      </el-row>
+      </div>
+
     </el-form>
   </div>
 </template>
@@ -83,10 +83,14 @@ export default {
 .setting-container{
   width: 100%;
   height: 100%;
-  padding: 40px 0px 0px 20px;
+  padding: 40px 0 0 20px;
+
+  position: relative;
 }
 
 .botton-bar{
-  margin-top: 80px;
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
 }
 </style>

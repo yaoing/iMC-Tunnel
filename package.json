@@ -47,7 +47,8 @@
       "icon": "static/icons/icon.ico"
     },
     "linux": {
-      "icon": "static/icons"
+      "icon": "static/icons/256x256.png",
+      "target": "deb"
     }
   },
   "dependencies": {

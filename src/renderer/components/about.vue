@@ -33,6 +33,6 @@ export default {
 }
 
 a{
-  color: #6c74bd;
+  color: #5361b8;
 }
 </style>

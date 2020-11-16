@@ -80,8 +80,7 @@ export default {
 <style scoped>
 
 .container{
-  height: 100%;
-  /*border: darkcyan 1px solid;*/
+  height: 330px;
 }
 
 .side-bar{
@@ -122,15 +121,15 @@ export default {
   line-height: 40px;
 
   color: #575757;
-  font-family: "Comic Sans MS";
+  font-family: "Comic Sans MS",sans-serif;
   font-size: 20px;
   user-select: none;
 }
 
 .main{
-  height: 100%;
+  width: 515px;
+  height: 290px;
 
-  overflow:hidden;
 }
 
 
