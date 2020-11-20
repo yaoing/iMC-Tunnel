@@ -22,7 +22,7 @@ export default {
 html,body{
   margin: 0 auto;
   padding: 0;
-
+  overflow: hidden;
 }
 
 #app{

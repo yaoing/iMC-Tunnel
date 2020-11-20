@@ -130,10 +130,7 @@ export default {
         }
         else{
           this.status = result
-          this.form = {
-            account: null,
-            password: null
-          }
+
           this.$notify({
             title:'登录失败',
             message:result,
@@ -153,6 +150,12 @@ export default {
       if(result===1 && this.timer === null){
         this.timeLogined = new Date().getTime()
         this.keepAlive()
+      }
+      else if(result===0){
+        this.form = {
+          account: null,
+          password: null
+        }
       }
     },
     logout:async function(){

@@ -128,9 +128,12 @@ async function logout(ip,port){
     })
 }
 async function connectionTest(host='https://www.baidu.com/favicon.ico'){
+    if(navigator.onLine===false)
+        return 0
 
     return new Promise(function (resolve,reject){
         request.get(host,function (err,res){
+            console.log(res)
             try {
                 if(!err && res.statusCode===200)
                     resolve(1)
