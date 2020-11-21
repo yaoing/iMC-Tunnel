@@ -127,12 +127,13 @@ async function logout(ip,port){
             })
     })
 }
-async function connectionTest(ip,host='http://pv.sohu.com/cityjson'){
+async function connectionTest(host='http://i.baidu.com/msg/message/get/'){
 
     return new Promise(function (resolve,reject){
         request.get(host,function (err,res){
             try {
-                if(!err && res.statusCode===200 && res.req.host !==ip)
+                // console.log(res.statusCode,res.req)
+                if(!err && res.statusCode===200 && res.req.path ==='/msg/message/get/')
                     resolve(1)
                 else
                     resolve(0)

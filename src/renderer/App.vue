@@ -26,8 +26,10 @@ html,body{
 }
 
 #app{
-  width: 550px;
+  width: 100%;
   height: 330px;
+  margin: 0;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }

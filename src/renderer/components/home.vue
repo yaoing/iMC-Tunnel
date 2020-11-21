@@ -310,8 +310,8 @@ export default {
         }
 
 
-        let testResult = await tunnel.connectionTest(this.globalSettings.bindIP)
-
+        let testResult = await tunnel.connectionTest()
+        console.log(testResult)
         if(this.status!=='已上线' || !testResult){
           this.isLogined = false
           // this.status = '意外下线'
@@ -341,7 +341,7 @@ export default {
           }
         }
 
-      },60000)
+      },10000)
     },
     retry:async function (){
       this.retryTime++
