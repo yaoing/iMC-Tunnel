@@ -95,4 +95,17 @@ ipcMain.on('closeWin',
         })
 
 
+
+const shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
+    mainWindow.show()
+  }
+});
+if (shouldQuit) {
+  app.quit()
+}
+
+
 export default app
