@@ -1,6 +1,6 @@
 {
   "name": "imc_tunnel",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "author": "",
   "description": "An auto-login and deamon tool with GUI pannel for  iMC Portal,powered by vue, electron and element-ui",
   "license": "Apache-2.0",

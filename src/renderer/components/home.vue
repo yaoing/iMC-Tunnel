@@ -44,7 +44,7 @@
 
     </el-row>
     <div class="bottom-info-bar">
-<!--      <span>{{loginInfo.userDevPort}}</span>-->
+      <!--      <span>{{loginInfo.userDevPort}}</span>-->
     </div>
 
   </div>
@@ -116,7 +116,6 @@ export default {
           this.isLogined = true
           this.loginInfo = result
 
-
           if(this.aliveRecorder.value===null){
             this.saveRecord()
 
@@ -149,6 +148,7 @@ export default {
       let result = await this.login()
       if(result===1 && this.timer === null){
         this.timeLogined = new Date().getTime()
+        clearInterval(this.timer)
         this.keepAlive()
       }
       else if(result===0){
@@ -182,7 +182,7 @@ export default {
               unit:null
             }
 
-              break
+            break
 
           default:
             this.$notify({
@@ -238,9 +238,9 @@ export default {
         return 1
 
       data.push({
-          'value':this.form.account,
-          'password':this.form.password
-        })
+        'value':this.form.account,
+        'password':this.form.password
+      })
 
       localStorage.setItem("localRecords",JSON.stringify(data))
 
@@ -285,13 +285,16 @@ export default {
 
     keepAlive: function (){
       this.timer = setInterval(async ()=>{
-        if(!this.isLogined)
+        if(!navigator.onLine){
+          this.status = '网络未连接'
+          this.isLogined = false
+
           return 0
+        }
+
 
         this.heartBeatCounter++
 
-        if(!this.isLogined && this.timeLogined)
-          clearInterval(this.timer)
 
         if(this.heartBeatCounter>=50)
           tunnel.doHeartBeat(
@@ -307,11 +310,11 @@ export default {
         }
 
 
-        let testResult = await tunnel.connectionTest()
+        let testResult = await tunnel.connectionTest(this.globalSettings.bindIP)
 
-        if(!testResult){
+        if(this.status!=='已上线' || !testResult){
           this.isLogined = false
-          this.status = '意外下线'
+          // this.status = '意外下线'
           this.retry()
         }
 
@@ -342,7 +345,6 @@ export default {
     },
     retry:async function (){
       this.retryTime++
-      await this.login()
 
       this.$notify({
         title:'重新连接',
@@ -350,6 +352,8 @@ export default {
         type:'warning',
         position:"bottom-right"
       })
+      // console.log('retrying at',new Date().getTime())
+      await this.login()
 
     }
   },

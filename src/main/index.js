@@ -37,6 +37,7 @@ function createWindow () {
   mainWindow.loadURL(winURL)
   // mainWindow.webContents.openDevTools()
   mainWindow.setMenu(null)
+
   if(process.platform === 'win32'){
     var trayMenuTemplate = [
       {

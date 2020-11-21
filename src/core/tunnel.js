@@ -74,7 +74,7 @@ async function login(account,password,ip,port){
                     else
                         resolve('请求失败')
                 }catch (e){
-                    console.log(e)
+                    // console.log(e,new Date().getTime())
                     resolve('未知错误')
                 }
 
@@ -127,15 +127,12 @@ async function logout(ip,port){
             })
     })
 }
-async function connectionTest(host='https://www.baidu.com/favicon.ico'){
-    if(navigator.onLine===false)
-        return 0
+async function connectionTest(ip,host='http://pv.sohu.com/cityjson'){
 
     return new Promise(function (resolve,reject){
         request.get(host,function (err,res){
-            console.log(res)
             try {
-                if(!err && res.statusCode===200)
+                if(!err && res.statusCode===200 && res.req.host !==ip)
                     resolve(1)
                 else
                     resolve(0)
@@ -187,3 +184,6 @@ function decodeMsg(msg){
 
 export default {login,logout,doHeartBeat,connectionTest}
 
+// connectionTest().then((r)=>{
+//     console.log(r)
+// })
