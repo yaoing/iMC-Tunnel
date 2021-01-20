@@ -1,7 +1,8 @@
 {
   "name": "imc_tunnel",
   "version": "1.0.0",
-  "author": "",
+  "author": "yaoing<853818291@qq.com>",
+  "homepage": "https://github.com/yaoing/iMC-Tunnel",
   "description": "An auto-login and deamon tool with GUI pannel for  iMC Portal,powered by vue, electron and element-ui",
   "license": "Apache-2.0",
   "main": "./dist/electron/main.js",
