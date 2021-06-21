@@ -1,6 +1,6 @@
 {
   "name": "imc_tunnel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "yaoing<853818291@qq.com>",
   "homepage": "https://github.com/yaoing/iMC-Tunnel",
   "description": "An auto-login and deamon tool with GUI pannel for  iMC Portal,powered by vue, electron and element-ui",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
-    "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
+    "build:clean": "cross-env buildBUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "dev": "node .electron-vue/dev-runner.js",
     "pack": "npm run pack:main && npm run pack:renderer",

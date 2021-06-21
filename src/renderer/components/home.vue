@@ -295,8 +295,12 @@ export default {
 
         this.heartBeatCounter++
 
+        if(this.heartBeatCounter % 1200 == 0){
+          this.login()
+          this.heartBeatCounter = 0
+        }
 
-        if(this.heartBeatCounter>=50)
+        else if(this.heartBeatCounter % 50 == 0)
           tunnel.doHeartBeat(
               this.globalSettings.bindIP,
               this.globalSettings.bindPort,
@@ -304,10 +308,7 @@ export default {
               this.loginInfo.userStatus.serialNo
           )
 
-        if(this.heartBeatCounter>=1200){
-          this.login()
-          this.heartBeatCounter = 0
-        }
+
 
 
         let testResult = await tunnel.connectionTest()

@@ -3,7 +3,7 @@
     <p>项目名称： <a>iMC Tunnel</a></p>
     <p>项目地址： <a>https://github.com/yaoing/iMC-Tunnel</a></p>
     <p>项目作者： <a>垚望</a></p>
-    <p>当前版本： <a>1.0.0</a></p>
+    <p>当前版本： <a>1.1.0</a></p>
     <el-divider content-position="right">动一动手指
       <el-divider direction="vertical"></el-divider>
       <strong>Star</strong>

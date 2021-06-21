@@ -127,13 +127,14 @@ async function logout(ip,port){
             })
     })
 }
-async function connectionTest(host='http://i.baidu.com/msg/message/get/'){
 
+async function connectionTest(host='https://www.baidu.com/'){
+    //"http://i.baidu.com/msg/message/get/"  to  "https://www.baidu.com/"
     return new Promise(function (resolve,reject){
         request.get(host,function (err,res){
             try {
                 // console.log(res.statusCode,res.req)
-                if(!err && res.statusCode===200 && res.req.path ==='/msg/message/get/')
+                if(!err && res.statusCode===200)
                     resolve(1)
                 else
                     resolve(0)

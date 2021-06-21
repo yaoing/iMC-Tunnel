@@ -1,4 +1,5 @@
 .DS_Store
+build/
 dist/electron/*
 dist/web/*
 node_modules/
