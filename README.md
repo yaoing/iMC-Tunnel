@@ -2,10 +2,9 @@
 
 >一款带图形化界面的 iMC Portal(H3C)网关 连接工具
 
-![image](https://user-images.githubusercontent.com/19516208/138985264-1b64f35c-095c-4b61-a069-76c1cb9c45a3.png)
+<img src="https://user-images.githubusercontent.com/19516208/138985264-1b64f35c-095c-4b61-a069-76c1cb9c45a3.png" width="50%">
 
-![image](https://user-images.githubusercontent.com/19516208/138985336-cd8d9811-2fc7-44bd-8893-4e4513d16d19.png)
-
+<img src="https://user-images.githubusercontent.com/19516208/138985336-cd8d9811-2fc7-44bd-8893-4e4513d16d19.png" width="50%">
 
 #### 安装流程
 
